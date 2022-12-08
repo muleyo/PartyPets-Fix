@@ -4,11 +4,16 @@ function PFP:OnInitialize()
     self:RegisterEvent("GROUP_ROSTER_UPDATE", "OnEvent")
     self:RegisterEvent("PLAYER_ENTERING_WORLD", "OnEvent")
     self:RegisterEvent("PLAYER_LOGIN", "OnEvent")
-    self:RegisterEvent("UNIT_PET", "OnEvent")
+    self:RegisterEvent("UNIT_CONNECTION", "OnEvent")
+
+    -- Small Delay to dodge errors
+    C_Timer.After(0.5, function()
+        self:RegisterEvent("UNIT_PET", "OnEvent")
+    end)
 end
 
 function PFP:OnEvent()
-    if (IsInParty() and GetNumGroupMembers() > 1) and not IsInRaid() then
+    if (IsInParty()) and not IsInRaid() then
         if UnitExists("pet") then
             local anchor = _G["CompactPartyFrameMember" .. GetNumGroupMembers()]
             PFP_Pet:SetPoint("LEFT", anchor, "LEFT", 1, -50)
@@ -109,6 +114,21 @@ function PFP:OnEvent()
             PFP_P4:Hide()
             PFP_P4Button:Hide()
         end
+    else
+        PFP_Pet:Hide()
+        PFP_PetButton:Hide()
+
+        PFP_P1:Hide()
+        PFP_P1Button:Hide()
+
+        PFP_P2:Hide()
+        PFP_P2Button:Hide()
+
+        PFP_P3:Hide()
+        PFP_P3Button:Hide()
+
+        PFP_P4:Hide()
+        PFP_P4Button:Hide()
     end
 end
 

@@ -1,7 +1,17 @@
 ## Interface: 100002
 ## Author: muleyo
 ## Version: 1.0.0
-## Title: [Dragonflight] Party Pets Fix
+## Title: |cff009cffPartyframe Pets Fix|r
+## Notes: Makes Raid-Style Partyframe Pets visible again
 
-# Load AddOn File
-PartyframePetsFix.lua
+## LIBS
+Libs\Load.xml
+
+## CONFIG
+Config.lua
+
+## AddOn
+Core.lua
+
+## Frames
+Frames\Load.xml

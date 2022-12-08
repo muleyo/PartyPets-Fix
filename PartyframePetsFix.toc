@@ -1,0 +1,7 @@
+## Interface: 100002
+## Author: muleyo
+## Version: 1.0.0
+## Title: [Dragonflight] Party Pets Fix
+
+# Load AddOn File
+PartyframePetsFix.lua

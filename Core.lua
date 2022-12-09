@@ -1,13 +1,27 @@
 PFP_Core = PFP:NewModule("PFP_Core")
 
 function PFP_Core:OnEnable()
-    print(PFP_DB.enabled)
     function PFP:OnEvent()
-        if InCombatLockdown() or PFP_Disabled() then return end
-        if (IsInParty()) and not IsInRaid() then
+        if InCombatLockdown() then return end
+        if PFP_Disabled() then
+            PFP_Pet:Hide()
+            PFP_PetButton:Hide()
+
+            PFP_P1:Hide()
+            PFP_P1Button:Hide()
+
+            PFP_P2:Hide()
+            PFP_P2Button:Hide()
+
+            PFP_P3:Hide()
+            PFP_P3Button:Hide()
+
+            PFP_P4:Hide()
+            PFP_P4Button:Hide()
+        elseif (IsInParty()) and not IsInRaid() then
             if UnitExists("pet") then
                 local anchor = _G["CompactPartyFrameMember" .. GetNumGroupMembers()]
-                PFP_Pet:SetPoint("LEFT", anchor, "LEFT", 0, -55)
+                PFP_Pet:SetPoint("LEFT", anchor, "LEFT", 0, PFP_DB.position)
                 PFP_Pet.name:SetText(UnitName("pet"))
 
                 -- Show frames if they got hidden earlier
@@ -23,7 +37,7 @@ function PFP_Core:OnEnable()
                 if UnitExists("pet") then
                     PFP_P1:SetPoint("LEFT", PFP_Pet, "LEFT", 0, -30.5)
                 else
-                    PFP_P1:SetPoint("LEFT", _G["CompactPartyFrameMember" .. GetNumGroupMembers()], "LEFT", 0, -50)
+                    PFP_P1:SetPoint("LEFT", _G["CompactPartyFrameMember" .. GetNumGroupMembers()], "LEFT", 0, PFP_DB.position)
                 end
 
                 -- Set Name
@@ -44,7 +58,7 @@ function PFP_Core:OnEnable()
                 elseif UnitExists("pet") then
                     PFP_P2:SetPoint("LEFT", PFP_Pet, "LEFT", 0, -30.5)
                 else
-                    PFP_P2:SetPoint("LEFT", _G["CompactPartyFrameMember" .. GetNumGroupMembers()], "LEFT", 0, -50)
+                    PFP_P2:SetPoint("LEFT", _G["CompactPartyFrameMember" .. GetNumGroupMembers()], "LEFT", 0, PFP_DB.position)
                 end
 
                 -- Set Name
@@ -67,7 +81,7 @@ function PFP_Core:OnEnable()
                 elseif UnitExists("pet") then
                     PFP_P3:SetPoint("LEFT", PFP_Pet, "LEFT", 0, -30.5)
                 else
-                    PFP_P3:SetPoint("LEFT", _G["CompactPartyFrameMember" .. GetNumGroupMembers()], "LEFT", 0, -50)
+                    PFP_P3:SetPoint("LEFT", _G["CompactPartyFrameMember" .. GetNumGroupMembers()], "LEFT", 0, PFP_DB.position)
                 end
 
                 -- Set Name
@@ -92,7 +106,7 @@ function PFP_Core:OnEnable()
                 elseif UnitExists("pet") then
                     PFP_P4:SetPoint("LEFT", PFP_Pet, "LEFT", 0, -30.5)
                 else
-                    PFP_P4:SetPoint("LEFT", _G["CompactPartyFrameMember" .. GetNumGroupMembers()], "LEFT", 0, -50)
+                    PFP_P4:SetPoint("LEFT", _G["CompactPartyFrameMember" .. GetNumGroupMembers()], "LEFT", 0, PFP_DB.position)
                 end
 
                 -- Set Name

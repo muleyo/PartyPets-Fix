@@ -5,7 +5,7 @@ function PFP_PartyPet3:OnEnable()
     PFP_P3 = CreateFrame("StatusBar", "PFP_P3", UIParent)
 
     -- Set Frame Size
-    PFP_P3:SetSize(130, 30)
+    PFP_P3:SetSize(PFP_DB.width, 30)
 
     -- Create FontString for Pet Name
     PFP_P3.name = PFP_P3:CreateFontString(nil)
@@ -41,7 +41,7 @@ function PFP_PartyPet3:OnEnable()
 
     -- Set Button Position
     PFP_P3Button:SetPoint("CENTER")
-    PFP_P3Button:SetSize(130, 30)
+    PFP_P3Button:SetSize(PFP_DB.width, 30)
 
     -- Set Button Attribute
     PFP_P3Button:SetAttribute("unit", "partypet3")

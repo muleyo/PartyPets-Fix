@@ -5,7 +5,7 @@ function PFP_PartyPet4:OnEnable()
     PFP_P4 = CreateFrame("StatusBar", "PFP_P4", UIParent)
 
     -- Set Frame Size
-    PFP_P4:SetSize(129, 20)
+    PFP_P4:SetSize(130, 30)
 
     -- Create FontString for Pet Name
     PFP_P4.name = PFP_P4:CreateFontString(nil)
@@ -13,13 +13,25 @@ function PFP_PartyPet4:OnEnable()
     PFP_P4.name:SetPoint("LEFT", PFP_P4, "LEFT", 5, 0)
     PFP_P4.name:SetShadowOffset(1,-1)
 
-    -- Set Background
-    PFP_P4.background = PFP_P4:CreateTexture()
-    PFP_P4.background:SetTexture([[Interface\RaidFrame\Raid-Bar-Hp-Bg]])
-
     -- Set Bar Texture & Color
     PFP_P4:SetStatusBarTexture([[Interface\RaidFrame\Raid-Bar-Hp-Fill]])
+    PFP_P4:GetStatusBarTexture():SetDrawLayer("ARTWORK", 5)
     PFP_P4:SetStatusBarColor(0, 1, 0)
+
+    -- Set Background
+    PFP_P4.background = PFP_P4:CreateTexture()
+    PFP_P4.background:SetAllPoints(PFP_P4)
+    PFP_P4.background:SetTexture([[Interface\RaidFrame\Raid-Bar-Hp-Bg]])
+    PFP_P4.background:SetDrawLayer("BACKGROUND", -1)
+    PFP_P4.background:SetTexCoord(0, 1, 0, 0.53125)
+
+    -- Set Border
+    PFP_P4.border = PFP_P4:CreateTexture()
+    PFP_P4.border:SetAllPoints(PFP_P4)
+    PFP_P4.border:SetTexture([[Interface\RaidFrame\Raid-FrameHighlights]])
+    PFP_P4.border:SetTexCoord(0.00781250, 0.55468750, 0.28906250, 0.55468750)
+    PFP_P4.border:SetDrawLayer("ARTWORK", 7)
+    PFP_P4.border:Hide()
 
     -- Set MinMax Values
     PFP_P4:SetMinMaxValues(0, UnitHealthMax("partypet4"))
@@ -29,7 +41,7 @@ function PFP_PartyPet4:OnEnable()
 
     -- Set Button Position
     PFP_P4Button:SetPoint("CENTER")
-    PFP_P4Button:SetSize(129, 20)
+    PFP_P4Button:SetSize(130, 30)
 
     -- Set Button Attribute
     PFP_P4Button:SetAttribute("unit", "partypet4")
@@ -46,9 +58,14 @@ function PFP_PartyPet4:OnEnable()
     -- Register Events
     PFP_P4:RegisterEvent("UNIT_HEALTH")
     PFP_P4:RegisterEvent("UNIT_MAXHEALTH")
+    PFP_P4:RegisterEvent("PLAYER_TARGET_CHANGED")
 
-    PFP_P4:HookScript("OnEvent", function()
-        PFP:UpdateHealth(PFP_P4, "partypet4")
-        PFP_P4:SetMinMaxValues(0, UnitHealthMax("partypet4"))
+    PFP_P4:HookScript("OnEvent", function(self, event)
+        if event == "PLAYER_TARGET_CHANGED" then
+            PFP:ShowBorder(PFP_P4, "partypet4")
+        else
+            PFP:UpdateHealth(PFP_P4, "partypet4")
+            PFP_P4:SetMinMaxValues(0, UnitHealthMax("partypet4"))
+        end
     end)
 end

@@ -1,27 +1,43 @@
-local PFP_Config = PFP:NewModule("PFP_Config")
+local PPF_Config = PPF:NewModule("PPF_Config")
 
-function PFP_Config:OnEnable()
+function PPF_Config:OnEnable()
+    local LSM = LibStub("LibSharedMedia-3.0")
+
     -- Enable / Disable AddOn functions
-    function PFP_EnableAddon()
-        PFP_DB.enabled = true
-        PFP:OnEvent()
-        print("" .. "|cff2f80faPartyframe Pets: |r" .. "Addon enabled.")
+    function PPF_EnableAddon()
+        PPF_DB.enabled = true
+        PPF:OnEvent()
+        print("" .. "|cff2f80faPartyPets Fix: |r" .. "Addon enabled.")
     end
 
-    function PFP_DisableAddon()
-        PFP_DB.enabled = false
-        PFP:OnEvent()
-        print("" .. "|cff2f80faPartyframe Pets: |r" .. "Addon disabled.")
+    function PPF_DisableAddon()
+        PPF_DB.enabled = false
+        PPF:OnEvent()
+        print("" .. "|cff2f80faPartyPets Fix: |r" .. "Addon disabled.")
+    end
+    
+    function PPF_EnableTest()
+        PPF.testmode = true
+        PPF_DB.enabled = false
+        PPF:OnEvent()
+
+        local anchor = _G["CompactPartyFrameMember" .. GetNumGroupMembers()]
+        PPF_Pet:SetPoint("LEFT", anchor, "LEFT", 0, PPF_DB.position)
+        PPF_Pet.name:SetText("TESTFRAME")
+
+        -- Show frames if they got hidden earlier
+        PPF_Pet:Show()
+        PPF_PetButton:Show()
     end
 
-    -- Testmode Functions
-    PFP.testmode = false
-    function PFP_EnableTest()
-        PFP.testmode = true
-    end
+    function PPF_DisableTest()
+        PPF.testmode = false
+        PPF_DB.enabled = true
 
-    function PFP_DisableTest()
-        PFP.testmode = false
+        PPF_Pet:Hide()
+        PPF_PetButton:Hide()
+
+        PPF:OnEvent()
     end
 
     -- Create Menu
@@ -30,17 +46,17 @@ function PFP_Config:OnEnable()
         args = {
             enable = {
             name = 'Enable',
-            desc = 'Enables / disables the addon',
+            desc = 'Enables / disables the AddOn',
             type = 'toggle',
             set = function(_, status)
                 if status then
-                    PFP_EnableAddon()
+                    PPF_EnableAddon()
                 else
-                    PFP_DisableAddon()
+                    PPF_DisableAddon()
                 end
             end,
             get = function()
-                return PFP_DB.enabled
+                return PPF_DB.enabled
             end
             },
             testmode = {
@@ -49,13 +65,13 @@ function PFP_Config:OnEnable()
                 type = 'toggle',
                 set = function(_, status)
                     if status then
-                        PFP_EnableTest()
+                        PPF_EnableTest()
                     else
-                        PFP_DisableTest()
+                        PPF_DisableTest()
                     end
                 end,
                 get = function(info)
-                    return PFP.testmode
+                    return PPF.testmode
                 end
             },
             moreoptions={
@@ -77,27 +93,46 @@ function PFP_Config:OnEnable()
                         min = 72,
                         max = 300,
                         step = 0.1,
-                        set = function(_, width)
-                            return PFP_DB.width
+                        set = function(_, val)
+                            PPF_Pet:SetWidth(val)
+                            PPF_PetButton:SetWidth(val)
+
+                            PPF_P1:SetWidth(val)
+                            PPF_P1Button:SetWidth(val)
+
+                            PPF_P2:SetWidth(val)
+                            PPF_P2Button:SetWidth(val)
+
+                            PPF_P3:SetWidth(val)
+                            PPF_P3Button:SetWidth(val)
+
+                            PPF_P4:SetWidth(val)
+                            PPF_P4Button:SetWidth(val)
+
+                            PPF_DB.width = val
                         end,
                         get = function()
-                            return PFP_DB.width
+                            return PPF_DB.width
                         end
                     },
                     position = {
                         type = 'range',
                         order = 3,
                         name = 'Y-Position',
-                        desc = 'Adjust the Frame Y-Position',
+                        desc = 'Adjust the Frame Y-Position (ONLY WORKS IN TESTMODE!)',
                         width = 'full',
                         min = -100,
                         max = 100,
                         step = 0.1,
-                        set = function(_, position)
-                            return PFP_DB.position
+                        set = function(_, val)
+                            if PPF.testmode then
+                                local anchor = _G["CompactPartyFrameMember" .. GetNumGroupMembers()]
+                                PPF_Pet:SetPoint("LEFT", anchor, "LEFT", 0, val)
+                                PPF_DB.position = val
+                            end
                         end,
                         get = function()
-                            return PFP_DB.position
+                            return PPF_DB.position
                         end
                     },
                     textureHeader = {
@@ -111,13 +146,20 @@ function PFP_Config:OnEnable()
                         name = 'Set Texture',
                         desc = 'Change the Pet HP-Bar texture if you want to',
                         width = 'full',
-                        values = {1, 2, 3, 4},
+                        values = LSM:HashTable('statusbar'),
+                        dialogControl = 'LSM30_Statusbar',
                         style = 'dropdown',
                         set = function(_, texture)
-                            print(texture)
+                            local Texture = LSM:Fetch('statusbar', texture)
+                            PPF_Pet:SetStatusBarTexture(Texture)
+                            PPF_P1:SetStatusBarTexture(Texture)
+                            PPF_P2:SetStatusBarTexture(Texture)
+                            PPF_P3:SetStatusBarTexture(Texture)
+                            PPF_P4:SetStatusBarTexture(Texture)
+                            PPF_DB.texture = texture
                         end,
                         get = function()
-                            return PFP_DB.texture
+                            return PPF_DB.texture
                         end
                     }
                 }
@@ -126,28 +168,28 @@ function PFP_Config:OnEnable()
     }
 
     -- Register Menu
-    LibStub('AceConfig-3.0'):RegisterOptionsTable('Partyframe Pet Fix', options)
-    local PFP_Config = LibStub('AceConfigDialog-3.0'):AddToBlizOptions('Partyframe Pet Fix')
+    LibStub('AceConfig-3.0'):RegisterOptionsTable('PartyPets Fix', options)
+    local PPF_Config = LibStub('AceConfigDialog-3.0'):AddToBlizOptions('PartyPets Fix')
 
     -- Slash Command Function
     function SlashCommand(msg)
         if msg == '' then
-            InterfaceOptionsFrame_OpenToCategory(PFP_Config)
+            InterfaceOptionsFrame_OpenToCategory(PPF_Config)
         end
 
         if msg == 'enable' or msg == 'Enable' or msg == 'ENABLE' then
-            PFP_EnableAddon()
+            PPF_EnableAddon()
         elseif msg == 'e' or msg == 'E' then
-            PFP_EnableAddon()
+            PPF_EnableAddon()
         end
 
         if msg == 'disable' or msg == 'Disable' or msg == 'DISABLE' then
-            PFP_DisableAddon()
+            PPF_DisableAddon()
         elseif msg == 'd' or msg == 'D' then
-            PFP_DisableAddon()
+            PPF_DisableAddon()
         end
     end
 
     -- Register Slash Command
-    PFP:RegisterChatCommand('pfp', SlashCommand)
+    PPF:RegisterChatCommand('PPF', SlashCommand)
 end

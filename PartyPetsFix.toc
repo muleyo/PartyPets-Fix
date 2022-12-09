@@ -1,9 +1,9 @@
 ## Interface: 100002
 ## Author: muleyo
 ## Version: 1.0.0
-## Title: |cff009cffPartyframe Pets Fix|r
+## Title: |cff009cffPartyPets Fix|r
 ## Notes: Makes Raid-Style Partyframe Pets visible again
-## SavedVariables: PFPDB
+## SavedVariables: PPFDB
 
 ## LIBS
 Libs\Load.xml
@@ -11,8 +11,11 @@ Libs\Load.xml
 ## CONFIG
 Config\Load.xml
 
-## AddOn
+## TEXTURES
+Textures\Load.xml
+
+## CORE
 Core.lua
 
-## Frames
+## FRAMES
 Frames\Load.xml

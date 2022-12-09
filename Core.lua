@@ -1,145 +1,145 @@
-PFP_Core = PFP:NewModule("PFP_Core")
+PPF_Core = PPF:NewModule("PPF_Core")
 
-function PFP_Core:OnEnable()
-    function PFP:OnEvent()
+function PPF_Core:OnEnable()
+    function PPF:OnEvent()
         if InCombatLockdown() then return end
-        if PFP_Disabled() then
-            PFP_Pet:Hide()
-            PFP_PetButton:Hide()
+        if PPF_Disabled() then
+            PPF_Pet:Hide()
+            PPF_PetButton:Hide()
 
-            PFP_P1:Hide()
-            PFP_P1Button:Hide()
+            PPF_P1:Hide()
+            PPF_P1Button:Hide()
 
-            PFP_P2:Hide()
-            PFP_P2Button:Hide()
+            PPF_P2:Hide()
+            PPF_P2Button:Hide()
 
-            PFP_P3:Hide()
-            PFP_P3Button:Hide()
+            PPF_P3:Hide()
+            PPF_P3Button:Hide()
 
-            PFP_P4:Hide()
-            PFP_P4Button:Hide()
+            PPF_P4:Hide()
+            PPF_P4Button:Hide()
         elseif (IsInParty()) and not IsInRaid() then
             if UnitExists("pet") then
                 local anchor = _G["CompactPartyFrameMember" .. GetNumGroupMembers()]
-                PFP_Pet:SetPoint("LEFT", anchor, "LEFT", 0, PFP_DB.position)
-                PFP_Pet.name:SetText(UnitName("pet"))
+                PPF_Pet:SetPoint("LEFT", anchor, "LEFT", 0, PPF_DB.position)
+                PPF_Pet.name:SetText(UnitName("pet"))
 
                 -- Show frames if they got hidden earlier
-                PFP_Pet:Show()
-                PFP_PetButton:Show()
-            elseif PFP_Pet:IsShown() and not UnitExists("pet") then
-                PFP_Pet:Hide()
-                PFP_PetButton:Hide()
+                PPF_Pet:Show()
+                PPF_PetButton:Show()
+            elseif PPF_Pet:IsShown() and not UnitExists("pet") then
+                PPF_Pet:Hide()
+                PPF_PetButton:Hide()
             end
 
             if UnitExists("partypet1") then
                 -- Set Position
                 if UnitExists("pet") then
-                    PFP_P1:SetPoint("LEFT", PFP_Pet, "LEFT", 0, -30.5)
+                    PPF_P1:SetPoint("LEFT", PPF_Pet, "LEFT", 0, -30.5)
                 else
-                    PFP_P1:SetPoint("LEFT", _G["CompactPartyFrameMember" .. GetNumGroupMembers()], "LEFT", 0, PFP_DB.position)
+                    PPF_P1:SetPoint("LEFT", _G["CompactPartyFrameMember" .. GetNumGroupMembers()], "LEFT", 0, PPF_DB.position)
                 end
 
                 -- Set Name
-                PFP_P1.name:SetText(UnitName("partypet1"))
+                PPF_P1.name:SetText(UnitName("partypet1"))
 
                 -- Show frames if they got hidden earlier
-                PFP_P1:Show()
-                PFP_P1Button:Show()
-            elseif PFP_P1:IsShown() and not UnitExists("partypet1") then
-                PFP_P1:Hide()
-                PFP_P1Button:Hide()
+                PPF_P1:Show()
+                PPF_P1Button:Show()
+            elseif PPF_P1:IsShown() and not UnitExists("partypet1") then
+                PPF_P1:Hide()
+                PPF_P1Button:Hide()
             end
 
             if UnitExists("partypet2") then
                 -- Set Position
                 if UnitExists("partypet1") then
-                    PFP_P2:SetPoint("LEFT", PFP_P1, "LEFT", 0, -30.5)
+                    PPF_P2:SetPoint("LEFT", PPF_P1, "LEFT", 0, -30.5)
                 elseif UnitExists("pet") then
-                    PFP_P2:SetPoint("LEFT", PFP_Pet, "LEFT", 0, -30.5)
+                    PPF_P2:SetPoint("LEFT", PPF_Pet, "LEFT", 0, -30.5)
                 else
-                    PFP_P2:SetPoint("LEFT", _G["CompactPartyFrameMember" .. GetNumGroupMembers()], "LEFT", 0, PFP_DB.position)
+                    PPF_P2:SetPoint("LEFT", _G["CompactPartyFrameMember" .. GetNumGroupMembers()], "LEFT", 0, PPF_DB.position)
                 end
 
                 -- Set Name
-                PFP_P2.name:SetText(UnitName("partypet2"))
+                PPF_P2.name:SetText(UnitName("partypet2"))
 
                 -- Show frames if they got hidden earlier
-                PFP_P2:Show()
-                PFP_P2Button:Show()
-            elseif PFP_P2:IsShown() and not UnitExists("partypet2") then
-                PFP_P2:Hide()
-                PFP_P2Button:Hide()
+                PPF_P2:Show()
+                PPF_P2Button:Show()
+            elseif PPF_P2:IsShown() and not UnitExists("partypet2") then
+                PPF_P2:Hide()
+                PPF_P2Button:Hide()
             end
 
             if UnitExists("partypet3") then
                 -- Set Position
                 if UnitExists("partypet2") then
-                    PFP_P3:SetPoint("LEFT", PFP_P2, "LEFT", 0, -30.5)
+                    PPF_P3:SetPoint("LEFT", PPF_P2, "LEFT", 0, -30.5)
                 elseif UnitExists("partypet1") then
-                    PFP_P3:SetPoint("LEFT", PFP_P1, "LEFT", 0, -30.5)
+                    PPF_P3:SetPoint("LEFT", PPF_P1, "LEFT", 0, -30.5)
                 elseif UnitExists("pet") then
-                    PFP_P3:SetPoint("LEFT", PFP_Pet, "LEFT", 0, -30.5)
+                    PPF_P3:SetPoint("LEFT", PPF_Pet, "LEFT", 0, -30.5)
                 else
-                    PFP_P3:SetPoint("LEFT", _G["CompactPartyFrameMember" .. GetNumGroupMembers()], "LEFT", 0, PFP_DB.position)
+                    PPF_P3:SetPoint("LEFT", _G["CompactPartyFrameMember" .. GetNumGroupMembers()], "LEFT", 0, PPF_DB.position)
                 end
 
                 -- Set Name
-                PFP_P3.name:SetText(UnitName("partypet3"))
+                PPF_P3.name:SetText(UnitName("partypet3"))
 
                 -- Show frames if they got hidden earlier
-                PFP_P3:Show()
-                PFP_P3Button:Show()
-            elseif PFP_P3:IsShown() and not UnitExists("partypet3") then
-                PFP_P3:Hide()
-                PFP_P3Button:Hide()
+                PPF_P3:Show()
+                PPF_P3Button:Show()
+            elseif PPF_P3:IsShown() and not UnitExists("partypet3") then
+                PPF_P3:Hide()
+                PPF_P3Button:Hide()
             end
 
             if UnitExists("partypet4") then
                 -- Set Position
                 if UnitExists("partypet3") then
-                    PFP_P4:SetPoint("LEFT", PFP_P3, "LEFT", 0, -30.5)
+                    PPF_P4:SetPoint("LEFT", PPF_P3, "LEFT", 0, -30.5)
                 elseif UnitExists("partypet2") then
-                    PFP_P4:SetPoint("LEFT", PFP_P2, "LEFT", 0, -30.5)
+                    PPF_P4:SetPoint("LEFT", PPF_P2, "LEFT", 0, -30.5)
                 elseif UnitExists("partypet1") then
-                    PFP_P4:SetPoint("LEFT", PFP_P1, "LEFT", 0, -30.5)
+                    PPF_P4:SetPoint("LEFT", PPF_P1, "LEFT", 0, -30.5)
                 elseif UnitExists("pet") then
-                    PFP_P4:SetPoint("LEFT", PFP_Pet, "LEFT", 0, -30.5)
+                    PPF_P4:SetPoint("LEFT", PPF_Pet, "LEFT", 0, -30.5)
                 else
-                    PFP_P4:SetPoint("LEFT", _G["CompactPartyFrameMember" .. GetNumGroupMembers()], "LEFT", 0, PFP_DB.position)
+                    PPF_P4:SetPoint("LEFT", _G["CompactPartyFrameMember" .. GetNumGroupMembers()], "LEFT", 0, PPF_DB.position)
                 end
 
                 -- Set Name
-                PFP_P4.name:SetText(UnitName("partypet4"))
+                PPF_P4.name:SetText(UnitName("partypet4"))
 
                 -- Show frames if they got hidden earlier
-                PFP_P4:Show()
-                PFP_P4Button:Show()
-            elseif PFP_P4:IsShown() and not UnitExists("partypet4") then
-                PFP_P4:Hide()
-                PFP_P4Button:Hide()
+                PPF_P4:Show()
+                PPF_P4Button:Show()
+            elseif PPF_P4:IsShown() and not UnitExists("partypet4") then
+                PPF_P4:Hide()
+                PPF_P4Button:Hide()
             end
         else
-            PFP_Pet:Hide()
-            PFP_PetButton:Hide()
+            PPF_Pet:Hide()
+            PPF_PetButton:Hide()
 
-            PFP_P1:Hide()
-            PFP_P1Button:Hide()
+            PPF_P1:Hide()
+            PPF_P1Button:Hide()
 
-            PFP_P2:Hide()
-            PFP_P2Button:Hide()
+            PPF_P2:Hide()
+            PPF_P2Button:Hide()
 
-            PFP_P3:Hide()
-            PFP_P3Button:Hide()
+            PPF_P3:Hide()
+            PPF_P3Button:Hide()
 
-            PFP_P4:Hide()
-            PFP_P4Button:Hide()
+            PPF_P4:Hide()
+            PPF_P4Button:Hide()
         end
     end
 
     -- Create Border
 
-    function PFP:ShowBorder(frame, unit)
+    function PPF:ShowBorder(frame, unit)
         if UnitIsUnit("target", unit) then
             frame.border:Show()
         else
@@ -147,7 +147,7 @@ function PFP_Core:OnEnable()
         end
     end
 
-    function PFP:UpdateHealth(frame, unit)
+    function PPF:UpdateHealth(frame, unit)
         frame:SetValue(UnitHealth(unit))
     end
 
@@ -157,8 +157,8 @@ function PFP_Core:OnEnable()
         end
     end
 
-    function PFP_Disabled()
-        if PFP_DB.enabled then
+    function PPF_Disabled()
+        if PPF_DB.enabled then
             return false
         else
             return true
@@ -166,14 +166,14 @@ function PFP_Core:OnEnable()
     end
 
     -- Register Events
-    PFP:RegisterEvent("GROUP_ROSTER_UPDATE", "OnEvent")
-    PFP:RegisterEvent("PLAYER_ENTERING_WORLD", "OnEvent")
-    PFP:RegisterEvent("PLAYER_LOGIN", "OnEvent")
-    PFP:RegisterEvent("UNIT_CONNECTION", "OnEvent")
-    PFP:RegisterEvent("PLAYER_REGEN_ENABLED", "OnEvent")
+    PPF:RegisterEvent("GROUP_ROSTER_UPDATE", "OnEvent")
+    PPF:RegisterEvent("PLAYER_ENTERING_WORLD", "OnEvent")
+    PPF:RegisterEvent("PLAYER_LOGIN", "OnEvent")
+    PPF:RegisterEvent("UNIT_CONNECTION", "OnEvent")
+    PPF:RegisterEvent("PLAYER_REGEN_ENABLED", "OnEvent")
 
     -- Small Delay to dodge errors
     C_Timer.After(0.5, function()
-        PFP:RegisterEvent("UNIT_PET", "OnEvent")
+        PPF:RegisterEvent("UNIT_PET", "OnEvent")
     end)
 end

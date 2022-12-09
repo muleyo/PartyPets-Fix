@@ -1,19 +1,38 @@
-PFP = LibStub("AceAddon-3.0"):NewAddon("PFP", "AceEvent-3.0", "AceConsole-3.0")
+PPF = LibStub("AceAddon-3.0"):NewAddon("PPF", "AceEvent-3.0", "AceConsole-3.0")
 
-function PFP:OnInitialize()
+function PPF:OnInitialize()
     -- Database Default profile
     local defaults = {
         profile = {
           width = 72,
           position = -55,
-          texture = [[Interface\Default]],
+          texture = [[Interface\RaidFrame\Raid-Bar-Hp-Fill]],
           enabled = true
         }
     }
 
     -- Register Database
-    self.db = LibStub("AceDB-3.0"):New("PFPDB", defaults, true)
+    self.db = LibStub("AceDB-3.0"):New("PPFDB", defaults, true)
 
     -- Assign DB to a global variable
-    PFP_DB = self.db.profile
+    PPF_DB = self.db.profile
+
+    -- Testmode Variable
+    PPF.testmode = false
+end
+
+function PPF:LSB_Helper(LSBList, LSBHash)
+    local list = {}
+    for index, name in pairs(LSBList) do
+        list[index] = {}
+        for k, v in pairs(LSBHash) do
+            if (name == k) then
+                list[index] = {
+                    text = name,
+                    value = v
+                }
+            end
+        end
+    end
+    return list
 end

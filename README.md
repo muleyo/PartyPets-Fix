@@ -8,7 +8,7 @@ This AddOn fixes this issue by creating custom Pet Frames for the Raid-Style Par
 
 ## Quick Start
 
-- To open the configuration menu, type `/PFP` in your chat and hit enter.
+- To open the configuration menu, type `/PPF` in your chat and hit enter.
 
 Afterwards you'll have to set up the width (and height if you'd like to) to make it fit to your current Raid-Style Partyframe. You can also change the texture of the Pet frames.
 

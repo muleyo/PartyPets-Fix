@@ -1,4 +1,4 @@
-name: PartyframePetsFix # description of this workflow, can be anything you want
+name: PartyPetsFix # description of this workflow, can be anything you want
 
 # triggers when pushing a tag
 on:

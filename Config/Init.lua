@@ -5,7 +5,8 @@ function PPF:OnInitialize()
     local defaults = {
         profile = {
           width = 72,
-          position = -55,
+          positionx = 0,
+          positiony = -55,
           texture = [[Interface\RaidFrame\Raid-Bar-Hp-Fill]],
           enabled = true
         }

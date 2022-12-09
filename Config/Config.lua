@@ -22,7 +22,7 @@ function PPF_Config:OnEnable()
         PPF:OnEvent()
 
         local anchor = _G["CompactPartyFrameMember" .. GetNumGroupMembers()]
-        PPF_Pet:SetPoint("LEFT", anchor, "LEFT", 0, PPF_DB.position)
+        PPF_Pet:SetPoint("LEFT", anchor, "LEFT", PPF_DB.positionx, PPF_DB.positiony)
         PPF_Pet.name:SetText("TESTFRAME")
 
         -- Show frames if they got hidden earlier
@@ -115,7 +115,27 @@ function PPF_Config:OnEnable()
                             return PPF_DB.width
                         end
                     },
-                    position = {
+                    positionx = {
+                        type = 'range',
+                        order = 3,
+                        name = 'X-Position',
+                        desc = 'Adjust the Frame X-Position (ONLY WORKS IN TESTMODE!)',
+                        width = 'full',
+                        min = -100,
+                        max = 100,
+                        step = 0.1,
+                        set = function(_, val)
+                            if PPF.testmode then
+                                local anchor = _G["CompactPartyFrameMember" .. GetNumGroupMembers()]
+                                PPF_Pet:SetPoint("LEFT", anchor, "LEFT", val, PPF_DB.positiony)
+                                PPF_DB.positionx = val
+                            end
+                        end,
+                        get = function()
+                            return PPF_DB.positionx
+                        end
+                    },
+                    positiony = {
                         type = 'range',
                         order = 3,
                         name = 'Y-Position',
@@ -127,12 +147,12 @@ function PPF_Config:OnEnable()
                         set = function(_, val)
                             if PPF.testmode then
                                 local anchor = _G["CompactPartyFrameMember" .. GetNumGroupMembers()]
-                                PPF_Pet:SetPoint("LEFT", anchor, "LEFT", 0, val)
-                                PPF_DB.position = val
+                                PPF_Pet:SetPoint("LEFT", anchor, "LEFT", PPF_DB.positionx, val)
+                                PPF_DB.positiony = val
                             end
                         end,
                         get = function()
-                            return PPF_DB.position
+                            return PPF_DB.positiony
                         end
                     },
                     textureHeader = {

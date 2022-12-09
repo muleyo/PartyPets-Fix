@@ -21,7 +21,7 @@ function PPF_Core:OnEnable()
         elseif (IsInParty()) and not IsInRaid() then
             if UnitExists("pet") then
                 local anchor = _G["CompactPartyFrameMember" .. GetNumGroupMembers()]
-                PPF_Pet:SetPoint("LEFT", anchor, "LEFT", 0, PPF_DB.position)
+                PPF_Pet:SetPoint("LEFT", anchor, "LEFT", PPF_DB.positionx, PPF_DB.positiony)
                 PPF_Pet.name:SetText(UnitName("pet"))
 
                 -- Show frames if they got hidden earlier
@@ -37,7 +37,7 @@ function PPF_Core:OnEnable()
                 if UnitExists("pet") then
                     PPF_P1:SetPoint("LEFT", PPF_Pet, "LEFT", 0, -30.5)
                 else
-                    PPF_P1:SetPoint("LEFT", _G["CompactPartyFrameMember" .. GetNumGroupMembers()], "LEFT", 0, PPF_DB.position)
+                    PPF_P1:SetPoint("LEFT", _G["CompactPartyFrameMember" .. GetNumGroupMembers()], "LEFT", PPF_DB.positionx, PPF_DB.positiony)
                 end
 
                 -- Set Name
@@ -58,7 +58,7 @@ function PPF_Core:OnEnable()
                 elseif UnitExists("pet") then
                     PPF_P2:SetPoint("LEFT", PPF_Pet, "LEFT", 0, -30.5)
                 else
-                    PPF_P2:SetPoint("LEFT", _G["CompactPartyFrameMember" .. GetNumGroupMembers()], "LEFT", 0, PPF_DB.position)
+                    PPF_P2:SetPoint("LEFT", _G["CompactPartyFrameMember" .. GetNumGroupMembers()], "LEFT", PPF_DB.positionx, PPF_DB.positiony)
                 end
 
                 -- Set Name
@@ -81,7 +81,7 @@ function PPF_Core:OnEnable()
                 elseif UnitExists("pet") then
                     PPF_P3:SetPoint("LEFT", PPF_Pet, "LEFT", 0, -30.5)
                 else
-                    PPF_P3:SetPoint("LEFT", _G["CompactPartyFrameMember" .. GetNumGroupMembers()], "LEFT", 0, PPF_DB.position)
+                    PPF_P3:SetPoint("LEFT", _G["CompactPartyFrameMember" .. GetNumGroupMembers()], "LEFT", PPF_DB.positionx, PPF_DB.positiony)
                 end
 
                 -- Set Name
@@ -106,7 +106,7 @@ function PPF_Core:OnEnable()
                 elseif UnitExists("pet") then
                     PPF_P4:SetPoint("LEFT", PPF_Pet, "LEFT", 0, -30.5)
                 else
-                    PPF_P4:SetPoint("LEFT", _G["CompactPartyFrameMember" .. GetNumGroupMembers()], "LEFT", 0, PPF_DB.position)
+                    PPF_P4:SetPoint("LEFT", _G["CompactPartyFrameMember" .. GetNumGroupMembers()], "LEFT", PPF_DB.positionx, PPF_DB.positiony)
                 end
 
                 -- Set Name

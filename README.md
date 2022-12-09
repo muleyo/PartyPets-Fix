@@ -1,4 +1,4 @@
-# PartyFrame Pets Fix (Raid-Style) [Dragonflight]
+# PartyPets Fix (Raid-Style) [Dragonflight]
 
 ## What is this AddOn for!?
 

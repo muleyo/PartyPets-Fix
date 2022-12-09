@@ -1,4 +1,4 @@
-# PartyPets Fix (Raid-Style) [Dragonflight]
+# PartyPets Fix [Dragonflight]
 
 ## What is this AddOn for!?
 

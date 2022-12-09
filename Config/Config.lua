@@ -1,17 +1,19 @@
-local PFP_Config = PFP:NewModule('PFP_Config')
+local PFP_Config = PFP:NewModule("PFP_Config")
 
-function PFP_Config:OnInitialize()
-
-    local function DisableAddon()
+function PFP_Config:OnEnable()
+    function PFP_DisableAddon()
+        PFP_DB.enabled = false
         PFP:OnEvent()
         print("" .. "|cff2f80faPartyframe Pets: |r" .. "Addon disabled.")
     end
 
-    local function EnableAddon()
+    function PFP_EnableAddon()
+        PFP_DB.enabled = true
         PFP:OnEvent()
         print("" .. "|cff2f80faPartyframe Pets: |r" .. "Addon enabled.")
     end
 
+    -- Create Menu
     local options = {
         type = 'group',
         args = {
@@ -21,10 +23,13 @@ function PFP_Config:OnInitialize()
             type = 'toggle',
             set = function(_, status)
                 if status then
-                    EnableAddon()
+                    PFP_EnableAddon()
                 else
-                    DisableAddon()
+                    PFP_DisableAddon()
                 end
+            end,
+            get = function()
+                return PFP_DB.enabled
             end
             },
             moreoptions={
@@ -53,8 +58,8 @@ function PFP_Config:OnInitialize()
                     position = {
                         type = 'range',
                         order = 3,
-                        name = 'Position',
-                        desc = 'Adjust the Frame Position',
+                        name = 'Y-Position',
+                        desc = 'Adjust the Frame Y-Position',
                         width = 'full',
                         min = 72,
                         max = 300,
@@ -79,47 +84,32 @@ function PFP_Config:OnInitialize()
                         set = function(_, texture)
                             print(texture)
                         end
-                    },
-                    profileHeader = {
-                        type = 'header',
-                        name = 'Profile',
-                        order = 6
-                    },
-                    profile = {
-                        type = 'select',
-                        order = 7,
-                        name = 'Change Profile',
-                        desc = 'Change your profile',
-                        width = 'full',
-                        values = {1, 2, 3, 4},
-                        style = 'dropdown',
-                        set = function(_, profile)
-                            print(profile)
-                        end
-                    },
+                    }
                 }
             }
         }
     }
 
+    -- Register Menu
     LibStub('AceConfig-3.0'):RegisterOptionsTable('Partyframe Pet Fix', options)
     local PFP_Config = LibStub('AceConfigDialog-3.0'):AddToBlizOptions('Partyframe Pet Fix')
 
+    -- Register Commands
     function SlashCommand(msg)
         if msg == '' then
             InterfaceOptionsFrame_OpenToCategory(PFP_Config)
         end
 
         if msg == 'enable' or msg == 'Enable' or msg == 'ENABLE' then
-            EnableAddon()
+            PFP_EnableAddon()
         elseif msg == 'e' or msg == 'E' then
-            EnableAddon()
+            PFP_EnableAddon()
         end
 
         if msg == 'disable' or msg == 'Disable' or msg == 'DISABLE' then
-            DisableAddon()
+            PFP_DisableAddon()
         elseif msg == 'd' or msg == 'D' then
-            DisableAddon()
+            PFP_DisableAddon()
         end
     end
 

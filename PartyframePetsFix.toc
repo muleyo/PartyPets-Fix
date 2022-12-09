@@ -3,15 +3,16 @@
 ## Version: 1.0.0
 ## Title: |cff009cffPartyframe Pets Fix|r
 ## Notes: Makes Raid-Style Partyframe Pets visible again
+## SavedVariables: PFPDB
 
 ## LIBS
 Libs\Load.xml
 
+## CONFIG
+Config\Load.xml
+
 ## AddOn
 Core.lua
-
-## CONFIG
-Config.lua
 
 ## Frames
 Frames\Load.xml

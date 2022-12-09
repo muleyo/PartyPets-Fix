@@ -14,7 +14,7 @@ Afterwards you'll have to set up the width (and height if you'd like to) to make
 
 ## Issues
 
-If you've discovered bugs, errors or have any issues with this AddOn, don't hesitate to [post an issue](https://github.com).
+If you've discovered bugs, errors or have any issues with this AddOn, don't hesitate to [post an issue](https://github.com/cleanlock/PartyPets-Fix/issues/new).
 
 ## Support me
 

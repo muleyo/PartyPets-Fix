@@ -7,11 +7,11 @@
 ## LIBS
 Libs\Load.xml
 
-## CONFIG
-Config.lua
-
 ## AddOn
 Core.lua
+
+## CONFIG
+Config.lua
 
 ## Frames
 Frames\Load.xml

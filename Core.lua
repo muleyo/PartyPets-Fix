@@ -1,6 +1,7 @@
 PFP = LibStub("AceAddon-3.0"):NewAddon("PFP", "AceEvent-3.0", "AceConsole-3.0")
 
 function PFP:OnInitialize()
+    -- Register Events
     self:RegisterEvent("GROUP_ROSTER_UPDATE", "OnEvent")
     self:RegisterEvent("PLAYER_ENTERING_WORLD", "OnEvent")
     self:RegisterEvent("PLAYER_LOGIN", "OnEvent")
@@ -14,7 +15,7 @@ function PFP:OnInitialize()
 end
 
 function PFP:OnEvent()
-    if InCombatLockdown() then return end
+    if InCombatLockdown() or PFP_Disabled() then return end
     if (IsInParty()) and not IsInRaid() then
         if UnitExists("pet") then
             local anchor = _G["CompactPartyFrameMember" .. GetNumGroupMembers()]
@@ -151,5 +152,14 @@ end
 function IsInParty()
     if GetNumGroupMembers() > 0 then
         return true
+    end
+end
+
+function PFP_Disabled()
+    local enabled = true
+    if enabled == false then
+        return true
+    else
+        return false
     end
 end

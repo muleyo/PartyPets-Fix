@@ -3,6 +3,8 @@ PPF_Core = PPF:NewModule("PPF_Core")
 function PPF_Core:OnEnable()
     function PPF:OnEvent()
         if InCombatLockdown() then return end
+
+        local inInstance, instanceType = IsInInstance()
         if PPF_Disabled() then
             PPF_Pet:Hide()
             PPF_PetButton:Hide()
@@ -18,7 +20,8 @@ function PPF_Core:OnEnable()
 
             PPF_P4:Hide()
             PPF_P4Button:Hide()
-        elseif (IsInParty()) and not IsInRaid() then
+        elseif IsInParty() or (inInstance and instanceType == 'arena') and not IsInRaid() then
+            print("hello")
             if UnitExists("pet") then
                 local anchor = _G["CompactPartyFrameMember" .. GetNumGroupMembers()]
                 PPF_Pet:SetPoint("LEFT", anchor, "LEFT", PPF_DB.positionx, PPF_DB.positiony)
@@ -152,7 +155,7 @@ function PPF_Core:OnEnable()
     end
 
     function IsInParty()
-        if GetNumGroupMembers() > 0 then
+        if GetNumGroupMembers() > 1 then
             return true
         end
     end

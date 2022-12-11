@@ -21,7 +21,6 @@ function PPF_Core:OnEnable()
             PPF_P4:Hide()
             PPF_P4Button:Hide()
         elseif IsInParty() or (inInstance and instanceType == 'arena') and not IsInRaid() then
-            print("hello")
             if UnitExists("pet") then
                 local anchor = _G["CompactPartyFrameMember" .. GetNumGroupMembers()]
                 PPF_Pet:SetPoint("LEFT", anchor, "LEFT", PPF_DB.positionx, PPF_DB.positiony)

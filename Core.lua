@@ -154,7 +154,7 @@ function PPF_Core:OnEnable()
     end
 
     function IsInParty()
-        if GetNumGroupMembers() > 1 then
+        if GetNumGroupMembers() > 0 then
             return true
         end
     end

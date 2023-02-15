@@ -19,7 +19,13 @@ function PPF_PetPet:OnEnable()
     -- Set Bar Texture & Color
     PPF_Pet:SetStatusBarTexture(Texture)
     PPF_Pet:GetStatusBarTexture():SetDrawLayer("ARTWORK", 5)
-    PPF_Pet:SetStatusBarColor(0, 1, 0)
+    if PPF_DB.classcolor then
+        local _, class = UnitClass("player")
+        local class_r, class_g, class_b = GetClassColor(class)
+        PPF_Pet:SetStatusBarColor(class_r, class_g, class_b)
+    else
+        PPF_Pet:SetStatusBarColor(0, 1, 0)
+    end
 
     -- Set Background
     PPF_Pet.background = PPF_Pet:CreateTexture()

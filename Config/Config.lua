@@ -155,17 +155,29 @@ function PPF_Config:OnEnable()
                             return PPF_DB.positiony
                         end
                     },
-                    textureHeader = {
+                    miscellaneousHeader = {
                         type = 'header',
-                        name = 'Textures',
-                        order = 4
+                        name = 'Miscellaneous',
+                        order = 5
+                    },
+                    classcolor = {
+                        name = 'Pet Classcolor',
+                        desc = 'Show Pet HP-Bar in owner\'s Classcolor',
+                        type = 'toggle',
+                        order = 6,
+                        set = function(_, val)
+                            PPF_DB.classcolor = val
+                        end,
+                        get = function(info)
+                            return PPF_DB.classcolor
+                        end
                     },
                     texture = {
                         type = 'select',
-                        order = 5,
+                        order = 7,
                         name = 'Set Texture',
                         desc = 'Change the Pet HP-Bar texture if you want to',
-                        width = 'full',
+                        width = 1.25,
                         values = LSM:HashTable('statusbar'),
                         dialogControl = 'LSM30_Statusbar',
                         style = 'dropdown',
@@ -181,7 +193,7 @@ function PPF_Config:OnEnable()
                         get = function()
                             return PPF_DB.texture
                         end
-                    }
+                    },
                 }
             }
         }

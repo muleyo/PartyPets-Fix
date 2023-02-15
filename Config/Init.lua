@@ -7,6 +7,7 @@ function PPF:OnInitialize()
           width = 72,
           positionx = 0,
           positiony = -55,
+          classcolor = false,
           texture = [[Interface\RaidFrame\Raid-Bar-Hp-Fill]],
           enabled = true
         }

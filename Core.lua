@@ -1,6 +1,10 @@
 PPF_Core = PPF:NewModule("PPF_Core")
 
 function PPF_Core:OnEnable()
+    local function IsInParty()
+        return GetNumGroupMembers() > 0 and not IsInRaid()
+    end
+
     function PPF:OnEvent()
         if InCombatLockdown() then return end
 
@@ -20,9 +24,18 @@ function PPF_Core:OnEnable()
 
             PPF_P4:Hide()
             PPF_P4Button:Hide()
-        elseif IsInParty() or (inInstance and instanceType == 'arena') and not IsInRaid() then
+        elseif IsInParty() or (inInstance and instanceType == 'arena') then
+            local frames = { CompactPartyFrame:GetChildren() }
+            local anchor = nil
+
+            for i, frame in ipairs(frames) do
+                if frame.unit and frame:IsVisible() and (not anchor or frame:GetBottom() < anchor:GetBottom()) then
+                    anchor = frame
+                end
+            end
+
             if UnitExists("pet") then
-                local anchor = _G["CompactPartyFrameMember" .. GetNumGroupMembers()]
+
                 PPF_Pet:SetPoint("LEFT", anchor, "LEFT", PPF_DB.positionx, PPF_DB.positiony)
                 PPF_Pet.name:SetText(UnitName("pet"))
 
@@ -39,7 +52,7 @@ function PPF_Core:OnEnable()
                 if UnitExists("pet") then
                     PPF_P1:SetPoint("LEFT", PPF_Pet, "LEFT", 0, -30.5)
                 else
-                    PPF_P1:SetPoint("LEFT", _G["CompactPartyFrameMember" .. GetNumGroupMembers()], "LEFT", PPF_DB.positionx, PPF_DB.positiony)
+                    PPF_P1:SetPoint("LEFT", anchor, "LEFT", PPF_DB.positionx, PPF_DB.positiony)
                 end
 
                 -- Set Name
@@ -60,7 +73,7 @@ function PPF_Core:OnEnable()
                 elseif UnitExists("pet") then
                     PPF_P2:SetPoint("LEFT", PPF_Pet, "LEFT", 0, -30.5)
                 else
-                    PPF_P2:SetPoint("LEFT", _G["CompactPartyFrameMember" .. GetNumGroupMembers()], "LEFT", PPF_DB.positionx, PPF_DB.positiony)
+                    PPF_P2:SetPoint("LEFT", anchor, "LEFT", PPF_DB.positionx, PPF_DB.positiony)
                 end
 
                 -- Set Name
@@ -83,7 +96,7 @@ function PPF_Core:OnEnable()
                 elseif UnitExists("pet") then
                     PPF_P3:SetPoint("LEFT", PPF_Pet, "LEFT", 0, -30.5)
                 else
-                    PPF_P3:SetPoint("LEFT", _G["CompactPartyFrameMember" .. GetNumGroupMembers()], "LEFT", PPF_DB.positionx, PPF_DB.positiony)
+                    PPF_P3:SetPoint("LEFT", anchor, "LEFT", PPF_DB.positionx, PPF_DB.positiony)
                 end
 
                 -- Set Name
@@ -108,7 +121,7 @@ function PPF_Core:OnEnable()
                 elseif UnitExists("pet") then
                     PPF_P4:SetPoint("LEFT", PPF_Pet, "LEFT", 0, -30.5)
                 else
-                    PPF_P4:SetPoint("LEFT", _G["CompactPartyFrameMember" .. GetNumGroupMembers()], "LEFT", PPF_DB.positionx, PPF_DB.positiony)
+                    PPF_P4:SetPoint("LEFT", anchor, "LEFT", PPF_DB.positionx, PPF_DB.positiony)
                 end
 
                 -- Set Name
@@ -153,14 +166,6 @@ function PPF_Core:OnEnable()
         frame:SetValue(UnitHealth(unit))
     end
 
-    function IsInParty()
-        if GetNumGroupMembers() > 5 then
-            return false
-        elseif GetNumGroupMembers() > 0 then
-            return true
-        end
-    end
-
     function PPF_Disabled()
         if PPF_DB.enabled then
             return false
@@ -171,10 +176,16 @@ function PPF_Core:OnEnable()
 
     -- Register Events
     PPF:RegisterEvent("GROUP_ROSTER_UPDATE", "OnEvent")
-    PPF:RegisterEvent("PLAYER_ENTERING_WORLD", "OnEvent")
     PPF:RegisterEvent("PLAYER_LOGIN", "OnEvent")
     PPF:RegisterEvent("UNIT_CONNECTION", "OnEvent")
     PPF:RegisterEvent("PLAYER_REGEN_ENABLED", "OnEvent")
+
+    -- It takes a few frames to fully load party frames when joining
+    -- an arena lobby. This ensures the anchor gets corrected properly.
+    PPF:RegisterEvent("PLAYER_ENTERING_WORLD", function()
+        PPF:OnEvent()
+        C_Timer.After(2, PPF.OnEvent)
+    end)
 
     -- Small Delay to dodge errors
     C_Timer.After(0.5, function()

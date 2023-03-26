@@ -176,16 +176,12 @@ function PPF_Core:OnEnable()
 
     -- Register Events
     PPF:RegisterEvent("GROUP_ROSTER_UPDATE", "OnEvent")
-    PPF:RegisterEvent("PLAYER_LOGIN", "OnEvent")
     PPF:RegisterEvent("UNIT_CONNECTION", "OnEvent")
+    PPF:RegisterEvent("UNIT_AREA_CHANGED", "OnEvent")
+    PPF:RegisterEvent("UNIT_PHASE", "OnEvent")
     PPF:RegisterEvent("PLAYER_REGEN_ENABLED", "OnEvent")
-
-    -- It takes a few frames to fully load party frames when joining
-    -- an arena lobby. This ensures the anchor gets corrected properly.
-    PPF:RegisterEvent("PLAYER_ENTERING_WORLD", function()
-        PPF:OnEvent()
-        C_Timer.After(2, PPF.OnEvent)
-    end)
+    PPF:RegisterEvent("PLAYER_ENTERING_WORLD", "OnEvent")
+    PPF:RegisterEvent("PLAYER_LOGIN", "OnEvent")
 
     -- Small Delay to dodge errors
     C_Timer.After(0.5, function()

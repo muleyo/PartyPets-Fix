@@ -121,8 +121,8 @@ function PPF_Config:OnEnable()
                         name = 'X-Position',
                         desc = 'Adjust the Frame X-Position (ONLY WORKS IN TESTMODE!)',
                         width = 'full',
-                        min = -100,
-                        max = 100,
+                        min = -500,
+                        max = 500,
                         step = 0.1,
                         set = function(_, val)
                             if PPF.testmode then
@@ -141,8 +141,8 @@ function PPF_Config:OnEnable()
                         name = 'Y-Position',
                         desc = 'Adjust the Frame Y-Position (ONLY WORKS IN TESTMODE!)',
                         width = 'full',
-                        min = -100,
-                        max = 100,
+                        min = -500,
+                        max = 500,
                         step = 0.1,
                         set = function(_, val)
                             if PPF.testmode then

@@ -1,6 +1,6 @@
-## Interface: 100007
+## Interface: 100100
 ## Author: muleyo
-## Version: 1.0.8
+## Version: 1.0.9
 ## Title: |cff009cffPartyPets Fix|r
 ## Notes: Makes Raid-Style Partyframe Pets visible again
 ## SavedVariables: PPFDB
